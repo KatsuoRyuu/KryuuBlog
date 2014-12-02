@@ -20,12 +20,20 @@ class ViewController extends AbstractActionController
     {
 		$viewModel = new ViewModel();
 		
+		$order_by = $this->params()->fromRoute('order_by') ? $this->params()->fromRoute('order_by') : 'id';
+        $order = $this->params()->fromRoute('order') ? $this->params()->fromRoute('order') : Select::ORDER_ASCENDING;
+        $page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+		
 		$viewService = $this->getServiceLocator()->get('kryuu_blog_view_post');
-		$posts = $viewService->getPosts();
+		$paginator = $viewService->getPosts();
 		$rowCount = $viewService->getPostsCount();
 		
-		$viewModel->setVariable('posts', $posts);
-		$viewModel->setVariable('rowCount', $rowCount);
+		$viewModel->setVariables(array(
+			'order_by' => $order_by,
+			'order' => $order,
+			'page' => $page,
+			'paginator' => $paginator,
+		));
 		
         return $viewModel;
     }

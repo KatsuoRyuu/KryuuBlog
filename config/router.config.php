@@ -61,7 +61,9 @@ return array(
                         'route' => '/view[/][:id]',
 						'constraints' => array(
 							'id' => '[a-z0-9]+',
-							'secure'=> '[0-1]',
+							'page' => '[0-9]+',
+							'order_by' => '[a-zA-Z][a-zA-Z0-9_-]*',
+							'order' => 'ASC|DESC',
 						),
                         'defaults' => array(
 							'secure' => '0',
