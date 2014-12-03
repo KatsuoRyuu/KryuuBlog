@@ -20,21 +20,18 @@ class ViewController extends AbstractActionController
     {
 		$viewModel = new ViewModel();
 		
-		$order_by = $this->params()->fromRoute('order_by') ? $this->params()->fromRoute('order_by') : 'id';
-        $order = $this->params()->fromRoute('order') ? $this->params()->fromRoute('order') : Select::ORDER_ASCENDING;
-        $page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
-		
 		$viewService = $this->getServiceLocator()->get('kryuu_blog_view_post');
 		$paginator = $viewService->getPosts();
-		$rowCount = $viewService->getPostsCount();
 		
-		$viewModel->setVariables(array(
-			'order_by' => $order_by,
-			'order' => $order,
-			'page' => $page,
-			'paginator' => $paginator,
-		));
-		
+        // set the current page to what has been passed in query string, or to 1 if none set
+        $paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+        // set the number of items per page to 10
+        $paginator->setItemCountPerPage(10);
+
+        $viewModel->setVariables(array(
+            'paginator' => $paginator
+        ));
+        
         return $viewModel;
     }
 	

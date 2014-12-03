@@ -1,6 +1,6 @@
 <?php
 
-namespace KryuuBlog;
+namespace KryuuBlog\View\Helper;
 
 /**
  * @encoding UTF-8
@@ -35,30 +35,23 @@ namespace KryuuBlog;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * @version 20140730 
+ * @version 20140506 
  * @link https://github.com/KatsuoRyuu/
  */
 
-return array(
-    'factories' => array(
-        //__NAMESPACE__.'\ShareObject'                   => __NAMESPACE__.'\Service\ObjectSharingServiceFactory',
-        //__NAMESPACE__.'\GlobalConfig'             => __NAMESPACE__.'\Service\GlobalConfigServiceFactory',
-        //'KryuuAccount\UserInfoService'            => 'KryuuAccount\Service\UserInfoServiceFactory',
-        //'kryuu_account_editor'                    => 'KryuuAccount\Service\UserEditorServiceFactory',
-        'KryuuBlog\Config'							=> 'KryuuBlog\Service\ConfigServiceFactory',
-        'KryuuBlog\ViewPost'				=> 'KryuuBlog\Service\ViewPostServiceFactory',
-        'KryuuBlog\StorePost'						=> 'KryuuBlog\Service\StorePostServiceFactory',
-    ),
-    'invokables'  => array(
-        //'BjyAuthorize\View\RedirectionStrategy' => 'BjyAuthorize\View\RedirectionStrategy',
-    ),
-    'aliases'     => array(
-        //'kryuu_blog_service_config' => __NAMESPACE__.'\Config',
-        //'kryuu_blog_view_post' => __NAMESPACE__.'\ViewPost',
-        //'kryuu_blog_service_config' => __NAMESPACE__.'\Config',
-    ),
-    'initializers' => array(
-        //'BjyAuthorize\Service\AuthorizeAwareServiceInitializer'
-        //    => 'BjyAuthorize\Service\AuthorizeAwareServiceInitializer'
-    ),
-);
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+
+/**
+ * 
+ */
+class ViewHelperFactory implements FactoryInterface
+{
+    public function createService(ServiceLocatorInterface $serviceLocatorInterface)
+    {
+        // $sl is instanceof ViewHelperManager, we need the real SL though
+        $serviceLocator = $serviceLocatorInterface->getServiceLocator();
+
+        return new ViewAllPostsHelper($serviceLocator->get('kryuu_blog_view_post'));
+    }
+}

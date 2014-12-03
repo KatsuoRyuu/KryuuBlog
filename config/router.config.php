@@ -75,6 +75,16 @@ return array(
                         ),
                     ),
                 ),
+                'Add' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                        'route' => '/add',
+                        'defaults' => array(
+                            'controller' => __NAMESPACE__ . '\View',
+                            'action' => 'view',
+                        ),
+                    ),
+                ),
             ),
         ),
     ),

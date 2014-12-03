@@ -1,0 +1,15 @@
+<?php if (is_object($post)): ?>
+    <article class="article">
+        <a href="#" title="Cassettiera 3 cass noce">
+            <img width="800" height="380" src="<?= $this->getExternalFile('/images/21.jpg'); ?>" alt="some tile" />
+        </a>
+        <div class="post-body">
+            <h2><a href="#"><?= $this->post->__get('title') ?></a></h2>
+            <p><?= $this->post->__get('introduction') ?></p>
+        </div>
+    </article>
+<?php elseif ($post['add'] == TRUE): ?>
+    <article class="article">
+        <h2><a href="<?= $this->url('KryuuBlog/Add') ?>">Add Blog Post</a></h2>
+    </article>
+<?php endif; ?>

@@ -62,6 +62,19 @@ class Blog {
      * @var integer 
      */
     private $id;
+    
+    /**
+     * @Annotation\Type("Zend\Form\Element\Text")
+     * @Annotation\Flags({"priority": 500})
+     * @Annotation\Required({"required":"true" })
+     * @Annotation\Filter({"name":"StripTags"})
+     * @Annotation\Options({"label":"Introduction:"})
+     * @Annotation\Attributes({"required": false,"placeholder": "Write your introduction ... "})
+     * 
+     * @ORM\Column(type="string")
+     * @var String as a title of the post
+     */
+    protected $title;
 
     /**
      * @Annotation\Exclude()

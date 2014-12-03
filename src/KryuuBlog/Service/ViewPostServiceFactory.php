@@ -80,8 +80,6 @@ class ViewPostServiceFactory implements FactoryInterface
 		$queryBuilder = $this->entityManager->createQueryBuilder();
 		$query = $queryBuilder->select('u')
 			->from($this->config['BlogEntity'], 'u')
-			->setFirstResult(0)
-			->setMaxResults(100)
 			->getQuery();	
 		$paginator = new ZendPaginator(new PageAdapter(new ORMPaginator($query)));
 		return $paginator;

@@ -53,6 +53,7 @@ return array(
 		'BlogEntity'	=> 'KryuuBlog\Entity\Blog',
 		'EntityManager' => 'Doctrine\ORM\EntityManager',
         
+        
     ),
     
     __AUTHORIZE__       => $authorize,
@@ -88,8 +89,25 @@ return array(
         'template_path_stack' => array(
             'kryuublog' => __DIR__ . '/../view',
         ),
+    ), 
+    'view_manager' => array(
+        'template_map' => array(
+            'partial/view/latest-posts'     => __DIR__ . '/../view/kryuu-blog/partial/view/latest-posts.phtml',
+            'partial/view/all-posts'        => __DIR__ . '/../view/kryuu-blog/partial/view/all-posts.phtml',
+            'partial/post/full'             => __DIR__ . '/../view/kryuu-blog/partial/post/full.phtml',
+            'partial/post/preview'          => __DIR__ . '/../view/kryuu-blog/partial/post/preview.phtml',
+        ),
     ),
     'module_layouts' => array(
         __NAMESPACE__ => __THEME__.'/layout/account',
+    ),
+    'view_helpers' => array(
+        'factories' => array(
+            'viewAllBlogPosts' => 'KryuuBlog\View\Helper\ViewHelperFactory'
+        ),
+        'invokables' => array(
+            'viewBlogPostPreview'   => 'KryuuBlog\View\Helper\PostPreviewHelper',
+            //'viewAllBlogPosts'  => 'KryuuBlog\View\Helper\ViewAllPostsHelper',
+        ),
     ),
 );
