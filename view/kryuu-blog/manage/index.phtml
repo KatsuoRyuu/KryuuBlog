@@ -9,10 +9,10 @@
             <td><?php echo $this->escapeHtml($post->title);?></td>
             <td><?php echo $this->escapeHtml($post->author);?></td>
             <td>
-                <a href="<?php echo $this->url('KryuuBlog',
-                    array('action' => 'edit', 'id' => $post->id));?>">Edit</a>
-                <a href="<?php echo $this->url('KryuuBlog',
-                    array('action' => 'delete', 'id' => $post->id));?>">Delete</a>
+                <a href="<?php echo $this->url('KryuuBlog/Edit',
+                    array('id' => $post->id));?>">Edit</a>
+                <a href="<?php echo $this->url('KryuuBlog/Delete',
+                    array('id' => $post->id));?>">Delete</a>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -25,10 +25,10 @@
     // the scrolling style; see http://zf2.readthedocs.org/en/release-2.1.4/modules/zend.paginator.usage.html#rendering-pages-with-view-scripts
     'sliding',
     // the partial to use to render the control
-    array('partial/paginator.phtml', 'KryuuBlog'),
+    array('partial/paginator.phtml', 'KryuuBlog/Admin'),
     // the route to link to when a user clicks a control link
     array(
-        'route' => 'KryuuBlog'
+        'route' => 'KryuuBlog/Admin'
     )
 );
 ?>

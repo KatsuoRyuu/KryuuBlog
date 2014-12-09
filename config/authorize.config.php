@@ -58,13 +58,16 @@ return array(
         ),
         'guards' => array(
             'BjyAuthorize\Guard\Controller' => array(
-                //array('controller' => 'KryuuAccount\Account', 'roles' => array('guest','user')), 
-                //array('controller' => 'KryuuAccount\Password', 'roles' => array('guest','user')), 
+                array('controller' => 'KryuuBlog\Manage', 'roles' => array('guest','user')), 
+                array('controller' => 'KryuuBlog\View', 'roles' => array('guest','user')), 
                 //array('controller' => 'KryuuAccount\status', 'roles' => array('guest','user')), 
             ),
             'BjyAuthorize\Guard\Route' => array( 
-                //array('route' => 'zfcuser/password/lost', 'roles' => array('user','guest')),
-                //array('route' => 'zfcuser/status', 'roles' => array('user','guest')),
+                array('route' => 'KryuuBlog', 'roles' => array('user','guest')),
+                array('route' => 'KryuuBlog/Add', 'roles' => array('user','guest')),
+                array('route' => 'KryuuBlog/Edit', 'roles' => array('user','guest')),
+                array('route' => 'KryuuBlog/Delete', 'roles' => array('user','guest')),
+                array('route' => 'KryuuBlog/Admin', 'roles' => array('user','guest')),
             ),
         ),
 );

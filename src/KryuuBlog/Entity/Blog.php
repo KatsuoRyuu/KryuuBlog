@@ -68,8 +68,8 @@ class Blog {
      * @Annotation\Flags({"priority": 500})
      * @Annotation\Required({"required":"true" })
      * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Options({"label":"Introduction:"})
-     * @Annotation\Attributes({"required": false,"placeholder": "Write your introduction ... "})
+     * @Annotation\Options({"label":"Title:"})
+     * @Annotation\Attributes({"required": false,"placeholder": "Write your title ... "})
      * 
      * @ORM\Column(type="string")
      * @var String as a title of the post
@@ -133,7 +133,7 @@ class Blog {
      * @param ANY $key
      * @return $value
      */
-    public function __set($value,$key){
+    public function __set($key,$value=null){
         return $this->$key = $value;
     }    
 
@@ -150,6 +150,7 @@ class Blog {
         return $this->$key;
     }    
 
+
     /**
      * WARNING USING THESE IS NOT SAFE. there is no checking on the data and you need to know what
      * you are doing when using these.
@@ -160,18 +161,21 @@ class Blog {
      * @param ANY $key
      * @return $value
      */
-    public function populate($array){
-        
-        $this->__add($array['about'],'about');
-        $this->__add($array['file'],'file' );
-        
-        $this->email    = $array['email'];
-        $this->message  = $array['message'];
-        $this->name     = $array['name'];
-        $this->subject  = $array['subject'];
+    public function populate($array = array()){
+        foreach ($array as $key => $var){
+            $this->$key = $var;
+        }
     }
-
-
+  
+    /**
+     * Populate from an array.
+     *
+     * @param array $data
+     */
+    public function exchangeArray($data = array()) 
+    {
+        $this->populate($data);
+    }
     /**
     * Get an array copy of object
     *

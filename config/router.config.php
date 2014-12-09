@@ -55,7 +55,7 @@ return array(
                 /**
                  * javascript Route
                  */
-                'view' => array(
+                'View' => array(
                     'type' => 'segment',
                     'options' => array(
                         'route' => '/view[/][:id]',
@@ -80,8 +80,47 @@ return array(
                     'options' => array(
                         'route' => '/add',
                         'defaults' => array(
-                            'controller' => __NAMESPACE__ . '\View',
-                            'action' => 'view',
+                            'controller' => __NAMESPACE__ . '\Manage',
+                            'action' => 'add',
+                        ),
+                    ),
+                ),
+                'Edit' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                        'route' => '/edit[/][:id]',
+                        'constraints' => array(
+                            'id' => '[0-9]+',
+                        ),
+                        'defaults' => array(
+                            'controller' => __NAMESPACE__ . '\Manage',
+                            'action' => 'edit',
+                        ),
+                    ),
+                ),
+                'Delete' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                        'route' => '/delete[/][:id]',
+                        'constraints' => array(
+                            'id' => '[0-9]+',
+                        ),
+                        'defaults' => array(
+                            'controller' => __NAMESPACE__ . '\Manage',
+                            'action' => 'delete',
+                        ),
+                    ),
+                ),
+                'Admin' => array(
+                    'type' => 'segment',
+                    'options' => array(
+                        'route' => '/admin[/][:page]',
+                        'constraints' => array(
+                            'page' => '[0-9]+',
+                        ),
+                        'defaults' => array(
+                            'controller' => __NAMESPACE__ . '\Manage',
+                            'action' => 'index',
                         ),
                     ),
                 ),

@@ -52,6 +52,6 @@ class ViewHelperFactory implements FactoryInterface
         // $sl is instanceof ViewHelperManager, we need the real SL though
         $serviceLocator = $serviceLocatorInterface->getServiceLocator();
 
-        return new ViewAllPostsHelper($serviceLocator->get('kryuu_blog_view_post'));
+        return new ViewAllPostsHelper($serviceLocator->get('kryuu_blog_post_service'));
     }
 }

@@ -48,14 +48,13 @@ use Zend\Paginator\Paginator as ZendPaginator;
 /**
  * 
  */
-class ViewPostServiceFactory implements FactoryInterface
+class PostServiceFactory implements FactoryInterface
 {
     
 	private $serviceLocator = null;
 	
 	private $entityManager = null;
-	
-	private $sessionID = null;
+
     /**
      * {@inheritDoc}
      *
@@ -65,10 +64,33 @@ class ViewPostServiceFactory implements FactoryInterface
     {
 		$this->serviceLocator = $serviceLocator;
 		$this->config = $this->serviceLocator->get('KryuuBlog/Config');
-		$this->entityManager = $this->serviceLocator->get($this->config['EntityManager']);
+        $entityManagerName = $this->config->get('EntityManager');
+        $this->entityManager = $this->serviceLocator->get( $entityManagerName );
 		
 		return $this;
     }	
+    
+    public function getEmptyPost()
+    {
+        return new $this->config['BlogEntity'];
+    }
+	
+	/**
+	 * 
+	 * @param type $from
+	 * @param type $number
+	 */
+	public function getPost($id)
+	{
+		$queryBuilder = $this->entityManager->createQueryBuilder();
+		$query = $queryBuilder->select('u')
+			->from($this->config['BlogEntity'], 'u')
+            ->where('u.id != :identifier')
+            ->setParameter('identifier', $id)
+			->getQuery();	
+		$post = $query->getResult();
+		return $post;
+	}
 	
 	/**
 	 * 
@@ -79,7 +101,7 @@ class ViewPostServiceFactory implements FactoryInterface
 	{
 		$queryBuilder = $this->entityManager->createQueryBuilder();
 		$query = $queryBuilder->select('u')
-			->from($this->config['BlogEntity'], 'u')
+			->from($this->config->get('BlogEntity'), 'u')
 			->getQuery();	
 		$paginator = new ZendPaginator(new PageAdapter(new ORMPaginator($query)));
 		return $paginator;

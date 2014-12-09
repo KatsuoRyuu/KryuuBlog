@@ -24,7 +24,7 @@ namespace KryuuBlog;
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  * Ryuu Technology shall be visible and readable to anyone using the software 
- * and shall be written in one of the following ways: Ryuu Technology 
+ * and shall be written in one of the following ways: 竜技術, Ryuu Technology 
  * or by using the company logo.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -35,7 +35,8 @@ namespace KryuuBlog;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * @version 20140730 
+
+ * @version 20140614 
  * @link https://github.com/KatsuoRyuu/
  */
 
@@ -50,10 +51,12 @@ $navigation = require_once(__DIR__.'/navigation.config.php');
 
 return array(
     __NAMESPACE__ => array(
+        'GlobalConfigurationService' => 'global_configuration_service',
 		'BlogEntity'	=> 'KryuuBlog\Entity\Blog',
 		'EntityManager' => 'Doctrine\ORM\EntityManager',
-        
-        
+        'services'      => array(
+            'viewPost'      => 'kryuu_blog_post_service',
+        ),
     ),
     
     __AUTHORIZE__       => $authorize,
@@ -66,7 +69,8 @@ return array(
     
     'controllers' => array(
         'invokables' => array(
-            'KryuuBlog\View'   => 'KryuuBlog\Controller\ViewController',
+            'KryuuBlog\View'        => 'KryuuBlog\Controller\ViewController',
+            'KryuuBlog\Manage'      => 'KryuuBlog\Controller\ManageController',
         ),
     ),
     
@@ -86,16 +90,14 @@ return array(
     ),
 	
     'view_manager' => array(
-        'template_path_stack' => array(
-            'kryuublog' => __DIR__ . '/../view',
-        ),
-    ), 
-    'view_manager' => array(
         'template_map' => array(
             'partial/view/latest-posts'     => __DIR__ . '/../view/kryuu-blog/partial/view/latest-posts.phtml',
             'partial/view/all-posts'        => __DIR__ . '/../view/kryuu-blog/partial/view/all-posts.phtml',
             'partial/post/full'             => __DIR__ . '/../view/kryuu-blog/partial/post/full.phtml',
             'partial/post/preview'          => __DIR__ . '/../view/kryuu-blog/partial/post/preview.phtml',
+        ),
+        'template_path_stack' => array(
+            'kryuublog' => __DIR__ . '/../view',
         ),
     ),
     'module_layouts' => array(

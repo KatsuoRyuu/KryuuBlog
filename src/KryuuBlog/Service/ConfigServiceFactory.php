@@ -35,6 +35,7 @@ namespace KryuuBlog\Service;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
+
  * @version 20140506 
  * @link https://github.com/KatsuoRyuu/
  */
@@ -45,24 +46,124 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * 
  */
-class ConfigServiceFactory implements FactoryInterface
-{
+class ConfigServiceFactory implements FactoryInterface {
+     
+    private $service;
+
+    private $baseNamespace;
     
-	private $serviceLocator = null;
-	
-	private $entityManager = null;
-	
-	private $sessionID = null;
     /**
      * {@inheritDoc}
      *
      * @return array
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->serviceLocator = $serviceLocator;
-        $config = $this->serviceLocator->get('config');
-        return $config['KryuuBlog'];
+    public function createService(ServiceLocatorInterface $serviceLocator) {
+        $configService = $this->getBaseNamespace().'\GlobalConfig';
+        $tmpConfig = $serviceLocator->get('config');
+        if (isset($tmpConfig['GlobalConfigurationService']))
+        {
+            $configService = $serviceLocator->get('config');
+        }
+        elseif (isset($tmpConfig[$this->getBaseNamespace()]['GlobalConfigurationService']))
+        {
+            $configService = $tmpConfig[$this->getBaseNamespace()]['GlobalConfigurationService'];
+        }
+        $this->service = $serviceLocator->get($configService);
+
+        return $this;
     }	
     
+	public function get($search=null,$global=false) {
+        return $this->service->getConfiguration($search,$global,$this->getBaseNamespace());
+    }
+	
+	/**
+	 * Returns the configuration
+	 *
+	 * Fetches the string of the base configuration name ex
+     * array(
+     *      test => someconfig,
+     *      foo  => array(
+     *           foobar => barfoo,
+     *           ),
+     *      );
+     * 
+     * getConfiguration(test) returns string(someconfig)
+     * getConfiguration(foo)  returns array(foobar => barfoo)
+	 *
+     * @param String $searchString the name of the base configuration
+	 * @access protected
+     * @return String or array.
+	 */
+	public function getMailTransport() {
+		return $this->service->getMailTransport();
+	}
+    
+    public function getMailMessage() {
+        return $this->service->getMailMessage();
+    }
+	
+	/**
+	* Returns the EntityManager
+	*
+	* Fetches the EntityManager from ServiceLocator if it has not been initiated
+	* and then returns it
+	*
+	* @access protected
+	* @return DoctrineORMModule\Service\EntityManagerAliasCompatFactory
+	*/
+	public function entityManager()	{
+		return $this->service->entityManager();
+	}
+    
+    
+	/**
+	* Sets the base namespace
+	*
+	* @param string $space
+	* @access protected
+	* @return PostController
+	*/
+	protected function setBaseNamespace($space)	{
+        
+        $space = explode('\\',$space);
+		$this->baseNamespace = $space[0];
+		return $this;
+	}
+	
+	/**
+	 * Returns the base namespace
+	 *
+	 * Fetches the string of the base Namespace ex. contact\controller 
+     * will return contact only
+	 *
+	 * @access protected
+     * @return String
+	 */
+	protected function getBaseNamespace() {
+        
+		if (null === $this->baseNamespace) {
+			$this->setBaseNamespace(__NAMESPACE__);
+		}
+        
+        return $this->baseNamespace;
+	}
+    
+    /**
+     * 
+     * @return eventmanager
+     */
+    protected function events($class) 
+    {
+        if (!$this->events) {
+            $this->events = new EventManager($class); 
+        }
+
+        return $this->events;
+    }
+    
+    public function translate($message){
+        
+		return $this->service->translate($message);
+    }
 }

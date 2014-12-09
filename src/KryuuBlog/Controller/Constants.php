@@ -36,37 +36,23 @@ namespace KryuuBlog\Controller;
  * THE SOFTWARE.
  *
 
- * @version 20140614 
+ * @version 20140703 
  * @link https://github.com/KatsuoRyuu/
  */
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use KryuuBlog\Controller\EntityUsingController;
+use \Zend\Mvc\Controller\AbstractActionController;
 
-class ViewController extends EntityUsingController
-{
-    public function indexAction()
-    {
-		$viewModel = new ViewModel();
-		
-		$viewService = $this->getServiceLocator()->get('kryuu_blog_post_service');
-		$paginator = $viewService->getPosts();
-		
-        // set the current page to what has been passed in query string, or to 1 if none set
-        $paginator->setCurrentPageNumber((int)$this->params('page',1));
-        // set the number of items per page to 10
-        $paginator->setItemCountPerPage(10);
-
-        $viewModel->setVariables(array(
-            'paginator' => $paginator
-        ));
-        
-        return $viewModel;
-    }
-	
-	public function viewAction()
-	{
-		return new ViewModel();
-	}
+class Constants extends AbstractActionController {
+    
+    const ROUTE_ADD             = 'KryuuBlog/Add';
+    const ROUTE_ADD_FAILED      = 'KryuuBlog/Add';
+    
+    const ROUTE_EDIT            = 'KryuuBlog/Edit';
+    const ROUTE_EDIT_FAILED     = 'KryuuBlog/Edit';
+    
+    const ROUTE_DELETE          = 'KryuuBlog/Delete';
+    const ROUTE_DELETE_FAILED   = 'KryuuBlog/Delete';
+    
+    const ROUTE_ADMIN           = 'KryuuBlog/Admin';
+    
 }

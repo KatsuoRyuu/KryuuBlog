@@ -46,8 +46,7 @@ return array(
         //'KryuuAccount\UserInfoService'            => 'KryuuAccount\Service\UserInfoServiceFactory',
         //'kryuu_account_editor'                    => 'KryuuAccount\Service\UserEditorServiceFactory',
         'KryuuBlog\Config'							=> 'KryuuBlog\Service\ConfigServiceFactory',
-        'KryuuBlog\ViewPost'				=> 'KryuuBlog\Service\ViewPostServiceFactory',
-        'KryuuBlog\StorePost'						=> 'KryuuBlog\Service\StorePostServiceFactory',
+        'KryuuBlog\PostService'                     => 'KryuuBlog\Service\PostServiceFactory',
     ),
     'invokables'  => array(
         //'BjyAuthorize\View\RedirectionStrategy' => 'BjyAuthorize\View\RedirectionStrategy',
