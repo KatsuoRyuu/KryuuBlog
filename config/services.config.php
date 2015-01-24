@@ -41,11 +41,11 @@ namespace KryuuBlog;
 
 return array(
     'factories' => array(
-        //__NAMESPACE__.'\ShareObject'                   => __NAMESPACE__.'\Service\ObjectSharingServiceFactory',
+        //__NAMESPACE__.'\ShareObject'              => __NAMESPACE__.'\Service\ObjectSharingServiceFactory',
         //__NAMESPACE__.'\GlobalConfig'             => __NAMESPACE__.'\Service\GlobalConfigServiceFactory',
         //'KryuuAccount\UserInfoService'            => 'KryuuAccount\Service\UserInfoServiceFactory',
         //'kryuu_account_editor'                    => 'KryuuAccount\Service\UserEditorServiceFactory',
-        'KryuuBlog\Config'							=> 'KryuuBlog\Service\ConfigServiceFactory',
+        'KryuuBlog\Config'                          => 'KryuuBlog\Service\ConfigServiceFactory',
         'KryuuBlog\PostService'                     => 'KryuuBlog\Service\PostServiceFactory',
     ),
     'invokables'  => array(

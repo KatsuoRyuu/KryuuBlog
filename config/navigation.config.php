@@ -41,13 +41,21 @@ namespace KryuuBlog;
 
 return array(
     'default' => array(
-        array(
-            'label' => 'Blog',
-            'route' => 'KryuuBlog',
-            'pages' => array(
-                array(
-                    'label' => 'Add Blog',
-                    'route' => 'KryuuBlog',
+        'KryuuBlog' => array(
+            'label'     => 'Blog',
+            'route'     => 'KryuuBlog',      
+            'module'    => 'KryuuBlog',
+            'controller'=> 'index',
+            'action'    => 'index',
+            'order'     => -100, // make sure home is the first page
+            'pages'     => array(
+                'Administration' => array(
+                    'label'     => 'Blog Admin',
+                    'route'     => 'KryuuBlog/Admin',            
+                    'module'    => 'KryuuBlog',
+                    'controller'=> 'index',
+                    'action'    => 'index',
+                    'order'     => -100, // make sure home is the first page
                 ),
             ),
         ),

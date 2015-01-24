@@ -2,18 +2,11 @@
     <tr>
         <th>Title</th>
         <th>Artist</th>
-        <th>&nbsp;</th>
     </tr>
     <?php foreach ($this->paginator as $post) : // <-- change here! ?>
         <tr>
             <td><?php echo $this->escapeHtml($post->title);?></td>
             <td><?php echo $this->escapeHtml($post->author);?></td>
-            <td>
-                <a href="<?php echo $this->url('KryuuBlog',
-                    array('action' => 'edit', 'id' => $post->id));?>">Edit</a>
-                <a href="<?php echo $this->url('KryuuBlog',
-                    array('action' => 'delete', 'id' => $post->id));?>">Delete</a>
-            </td>
         </tr>
     <?php endforeach; ?>
 </table>

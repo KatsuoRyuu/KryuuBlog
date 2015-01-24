@@ -44,14 +44,14 @@ namespace KryuuBlog;
 return array(
         'resource_providers' => array(
             'BjyAuthorize\Provider\Resource\Config' => array(
-                'KryuuBlog' => array(),
+                //'KryuuBlog' => array(),
             ),
         ),
         'rule_providers' => array(
             'BjyAuthorize\Provider\Rule\Config' => array(
                 'allow' => Array(
-                    Array(Array('guest','user'),'KryuuBlog',Array('view')),
-                    Array(Array('moderator'),'KryuuBlog',Array('add','edit')),
+                    //Array(Array('guest','user'),'KryuuBlog',Array('view')),
+                    //Array(Array('moderator'),'KryuuBlog',Array('add','edit')),
                     //Array(Array(),'Account\Controller\AccountController',Array())
                 ),
             ),

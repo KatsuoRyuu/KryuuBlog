@@ -52,8 +52,8 @@ $navigation = require_once(__DIR__.'/navigation.config.php');
 return array(
     __NAMESPACE__ => array(
         'GlobalConfigurationService' => 'global_configuration_service',
-		'BlogEntity'	=> 'KryuuBlog\Entity\Blog',
-		'EntityManager' => 'Doctrine\ORM\EntityManager',
+        'BlogEntity'	=> 'KryuuBlog\Entity\Blog',
+        'EntityManager' => 'Doctrine\ORM\EntityManager',
         'services'      => array(
             'viewPost'      => 'kryuu_blog_post_service',
         ),
@@ -99,9 +99,6 @@ return array(
         'template_path_stack' => array(
             'kryuublog' => __DIR__ . '/../view',
         ),
-    ),
-    'module_layouts' => array(
-        __NAMESPACE__ => __THEME__.'/layout/account',
     ),
     'view_helpers' => array(
         'factories' => array(
